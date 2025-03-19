@@ -68,7 +68,7 @@ long long FileInfo::GetFileSize(const std::string& filepath) {
 #else
 	struct stat stat_buf;
 	if (stat(filepath.c_str(), &stat_buf) != 0) {
-		return -1; // �ļ������ڻ��޷�����
+		return -1;
 	}
 	return stat_buf.st_size;
 #endif
