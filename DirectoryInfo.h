@@ -1,14 +1,36 @@
-#pragma once
+﻿#pragma once
+
 #include "FileInfo.h"
 #include <vector>
-class DirectoryInfo :public FileInfo
+
+/**
+ * @brief 目录信息类，继承自FileInfo
+ *
+ * 该类扩展了目录相关操作，如获取子文件和子目录列表等。
+ */
+class DirectoryInfo : public FileInfo
 {
 public:
-	using FileInfo::FileInfo;
-	std::vector<FileInfo*> GetFiles();
-	std::vector<DirectoryInfo*> GetDirectories();
+    using FileInfo::FileInfo;  ///< 继承FileInfo的构造函数
+
+    /**
+     * @brief 获取目录下的所有文件
+     * @return 文件信息对象指针数组
+     */
+    std::vector<FileInfo*> GetFiles();
+
+    /**
+     * @brief 获取目录下的所有子目录
+     * @return 目录信息对象指针数组
+     */
+    std::vector<DirectoryInfo*> GetDirectories();
+
 private:
-	void ListDirectory();
-	std::vector<std::pair<bool,std::string>> entries;
+    /**
+     * @brief 列出目录内容(内部使用)
+     */
+    void ListDirectory();
+
+    std::vector<std::pair<bool, std::string>> entries;  ///< 目录条目列表(pair中bool表示是否为文件)
 };
 
