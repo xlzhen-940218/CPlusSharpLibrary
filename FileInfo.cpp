@@ -1,4 +1,4 @@
-#include "FileInfo.h"
+﻿#include "FileInfo.h"
 #include <vector>
 #include <sstream>
 #include <iomanip>
@@ -13,18 +13,25 @@
 #include "DirectoryInfo.h"
 #ifdef WIN32
 #define realpath(N,R) _fullpath((R),(N),8192)
-char* GB2312ToUtf8(const char* gb2312)
+std::string FileInfo::GB2312ToUtf8(std::string& gb2312)
 {
-	int len = MultiByteToWideChar(CP_ACP, 0, gb2312, -1, NULL, 0);
+	int len = MultiByteToWideChar(CP_ACP, 0, gb2312.c_str(), -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[len + 1];
 	memset(wstr, 0, len + 1);
-	MultiByteToWideChar(CP_ACP, 0, gb2312, -1, wstr, len);
+	MultiByteToWideChar(CP_ACP, 0, gb2312.c_str(), -1, wstr, len);
 	len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
 	char* str = new char[len + 1];
 	memset(str, 0, len + 1);
 	WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
 	if (wstr) delete[] wstr;
 	return str;
+}
+std::wstring FileInfo::UTF8ToWString(std::string& utf8)
+{
+	int size_needed = MultiByteToWideChar(CP_UTF8, 0, utf8.data(), (int)utf8.size(), nullptr, 0);
+	std::wstring wstr(size_needed, 0);
+	MultiByteToWideChar(CP_UTF8, 0, utf8.data(), (int)utf8.size(), (wchar_t*)wstr.c_str(), size_needed);
+	return wstr;
 }
 #endif
 
@@ -36,8 +43,9 @@ FileInfo::FileInfo(std::string absPath, bool isFile) :isFile(isFile)
 		if (!file.good()) {
 			fileSize = 0;
 #ifdef _WIN32
-			absPath = GB2312ToUtf8(absPath.c_str());
-			file.open(absPath, std::ios::in);
+			absPath = GB2312ToUtf8(absPath);
+			
+			file.open(UTF8ToWString(absPath), std::ios::in);
 			if (!file.good()) {
 				return;
 			}
@@ -58,7 +66,8 @@ FileInfo::FileInfo(std::string absPath, bool isFile) :isFile(isFile)
 long long FileInfo::GetFileSize(const std::string& filepath) {
 #ifdef _WIN32
 	WIN32_FILE_ATTRIBUTE_DATA fileInfo;
-	if (!GetFileAttributesExA(filepath.c_str(), GetFileExInfoStandard, &fileInfo)) {
+	std::wstring wideFilePath = UTF8ToWString((std::string&)filepath);
+	if (!GetFileAttributesExW(wideFilePath.data(), GetFileExInfoStandard, &fileInfo)) {
 		return -1; 
 	}
 	LARGE_INTEGER size;
@@ -73,6 +82,8 @@ long long FileInfo::GetFileSize(const std::string& filepath) {
 	return stat_buf.st_size;
 #endif
 }
+
+
 
 FileInfo::~FileInfo()
 {

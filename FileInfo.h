@@ -1,4 +1,4 @@
-#include <fstream>
+﻿#include <fstream>
 #pragma once
 class DirectoryInfo;
 class FileInfo
@@ -29,5 +29,10 @@ protected:
 	bool isFile = true;
 private:
 	long long GetFileSize(const std::string& filepath);
+#ifdef _WIN32
+	std::string GB2312ToUtf8(std::string& gb2312);
+	std::wstring UTF8ToWString(std::string& utf8);
+#endif // _WIN32
+
 };
 

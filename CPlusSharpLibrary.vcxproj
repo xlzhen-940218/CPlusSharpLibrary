@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClInclude Include="DirectoryInfo.h" />
     <ClInclude Include="FileInfo.h" />
+    <ClInclude Include="String.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectoryInfo.cpp" />
     <ClCompile Include="FileInfo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

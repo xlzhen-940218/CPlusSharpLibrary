@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>"D:\视频\Keeprix\netflix\粉紅豬小妹\第 3 季\S01E003_波莉搭船記／小驢子德飛恩／消防車／公主佩佩／.MP4"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"C:\Users\xiong\Videos\Keeprix\netflix\Pokémon The Series_ Indigo League\S01E001_Pokémon - I Choose You_2025-05-13-12-16.MP4"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>"C:\Users\xiong\Downloads\FileEncrypt.exe"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"C:\Users\xiong\Videos\Keeprix\netflix\Pokémon The Series_ Indigo League\S01E001_Pokémon - I Choose You_2025-05-13-12-16.MP4"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
 </Project>
